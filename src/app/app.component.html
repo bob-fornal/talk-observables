@@ -12,7 +12,9 @@
     </div>
     <div class="console-wrapper">
       <button class="btn" (click)="runCode()">Run Code</button>
-      <div class="console">{{ outputContent }}</div>
+      <div class="console">
+        <div class="row" *ngFor="let row of outputContent">{{row}}</div>
+      </div>
     </div>
   </div>
 </div>
