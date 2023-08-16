@@ -6,7 +6,13 @@
     <button class="btn" (click)="selectOption(1)" [class.selected]="selected === 1">Subject</button>
   </div>
 
-  <div class="editor-wrapper">
-    <nu-monaco-editor class="editor" style="height: 100%;" [(ngModel)]="value" [options]="editorOptions"></nu-monaco-editor>
+  <div class="content-wrapper">
+    <div class="editor-wrapper">
+      <nu-monaco-editor class="editor" style="height: 100%;" [(ngModel)]="value" [options]="editorOptions"></nu-monaco-editor>
+    </div>
+    <div class="console-wrapper">
+      <button class="btn" (click)="runCode()">Run Code</button>
+      <div class="console">{{ outputContent }}</div>
+    </div>
   </div>
 </div>

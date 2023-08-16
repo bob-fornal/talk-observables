@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CodeService } from './core/services/code.service';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +10,33 @@ export class AppComponent {
   selected: number = -1;
 
   value: string = '';
-
   editorOptions = { theme: 'vs-dark', language: 'typescript', fontSize: 18, height: '900px' };
 
-  code: Array<string> = [
-`const a: number = 1;`,
-`const b: number = 2;`,
-  ];
+  constructor(public codeService: CodeService) {
+    this.codeService.init();
+    this.codeService.output = this.output.bind(this);
+  }
 
   selectOption = (option: number): void => {
     this.selected = option;
-    this.value = this.code[option];
+    this.value = this.codeService.code[option];
+    this.clearOutput();
+  };
+
+  runCode = (): void => {
+    this.clearOutput();
+    this.codeService.runDemo(this.selected);
+    console.log(this.outputContent);
+  };
+
+  outputContent: string = '';
+
+  output = (content: string): void => {
+    console.log(content);
+    this.outputContent += content + '\n';
+  };
+
+  clearOutput = (): void => {
+    this.outputContent = '';
   };
 }
