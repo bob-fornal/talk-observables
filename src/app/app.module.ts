@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule } from '@angular/forms';
+import { NuMonacoEditorModule } from '@ng-util/monaco-editor';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -8,7 +11,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    NuMonacoEditorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

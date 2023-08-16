@@ -1,0 +1,45 @@
+.outer-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+
+  background-color: gray;
+  color: white;
+  padding: 1rem;
+
+  .title {
+    font-size: 1.5rem;
+    font-variant: small-caps;
+    text-align: center;
+  }
+  .options {
+    text-align: center;
+  }
+  .editor-wrapper {
+    display: inline-block;
+    padding: 1rem;
+    height: calc(100vh - 10rem);
+    width: 50%;
+  }
+}
+
+.btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+  &:not(:first-child) {
+    margin-left: 1rem;
+  }
+  &:hover {
+    background-color: #4acF50;
+    cursor: pointer;
+  }
+}
