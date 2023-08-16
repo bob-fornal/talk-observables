@@ -22,11 +22,13 @@ export class AppComponent {
   selectOption = (option: number): void => {
     this.selected = option;
     this.value = this.codeService.code[option];
+    console.log(this.selected);
     this.clearOutput();
   };
 
   runCode = (): void => {
     this.clearOutput();
+    console.log(this.selected);
     this.codeService.runDemo(this.selected);
   };
 
