@@ -3,8 +3,12 @@
     <button class="btn" (click)="selectOption(0)" [class.selected]="selected === 0">Observable 1</button>
     <button class="btn" (click)="selectOption(1)" [class.selected]="selected === 1">Observable 2</button>
 
-    <button class="btn" (click)="selectOption(2)" [class.selected]="selected === 1">Subject</button>
-    <button class="btn" (click)="selectOption(3)" [class.selected]="selected === 1">BehaviorSubject</button>
+    <button class="btn" (click)="selectOption(2)" [class.selected]="selected === 2">Subject</button>
+    <button class="btn" (click)="selectOption(3)" [class.selected]="selected === 3">BehaviorSubject</button>
+    <button class="btn" (click)="selectOption(4)" [class.selected]="selected === 4">ReplaySubject 1</button>
+    <button class="btn" (click)="selectOption(5)" [class.selected]="selected === 5">ReplaySubject 2</button>
+    <button class="btn" (click)="selectOption(6)" [class.selected]="selected === 6">AsyncSubject</button>
+    <button class="btn" (click)="selectOption(7)" [class.selected]="selected === 7">void Subject</button>
   </div>
 
   <div class="content-wrapper">

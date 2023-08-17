@@ -12,7 +12,7 @@ export class AppComponent {
   value: string = '';
   editorOptions = { theme: 'vs-dark', language: 'typescript', fontSize: 18, height: '900px' };
 
-  outputContent: Array<string> = [];
+  outputContent: Array<string> = ['> console'];
 
   constructor(public codeService: CodeService) {
     this.codeService.init();
@@ -37,6 +37,6 @@ export class AppComponent {
   };
 
   clearOutput = (): void => {
-    this.outputContent = [];
+    this.outputContent = ['> console'];
   };
 }

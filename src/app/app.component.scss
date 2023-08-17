@@ -25,17 +25,17 @@
   .editor-wrapper {
     display: inline-block;
     padding: 1rem;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 7rem);
     width: 50%;
   }
   .console-wrapper {
     display: inline-block;
     padding: 1rem;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 7rem);
     width: 45%;
 
     .console {
-      height: calc(100% - 6rem);
+      height: calc(100% - 3rem);
       background-color: silver;
       overflow-y: scroll;
       white-space: pre-line;
@@ -70,8 +70,11 @@
   &:not(:first-child) {
     margin-left: 1rem;
   }
-  &:hover {
+  &:not(.selected):hover {
     background-color: #4acF50;
     cursor: pointer;
+  }
+  &.selected {
+    background-color: darkolivegreen;
   }
 }
