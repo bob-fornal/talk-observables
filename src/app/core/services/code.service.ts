@@ -1,5 +1,6 @@
+import { HttpClient } from  '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,58 +9,17 @@ export class CodeService {
   code: Array<string> = [];
   output: any;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  init = (): void => {
-    this.code.push(
-`
-import { Observable } from 'rxjs';
- 
-const demo0 = new Observable((subscriber) => {
-  subscriber.next(1);
-  subscriber.next(2);
-  subscriber.next(3);
-  setTimeout(() => {
-    subscriber.next(4);
-    subscriber.complete();
-  }, 1000);
-});
- 
-console.log('just before subscribe');
-demo0.subscribe({
-  next(x) {
-    console.log('got value ' + x);
-  },
-  error(err) {
-    console.error('something wrong occurred: ' + err);
-  },
-  complete() {
-    console.log('done');
-  },
-});
-console.log('just after subscribe');
-`
-    );
+  init = async (): Promise<void> => {
+    const fileCount: number = 4;
 
-    this.code.push(
-`
-import { Observable } from 'rxjs';
-
-const demo1 = new Observable((subscriber) => {
-  console.log('Hello');
-  subscriber.next(42);
-  subscriber.next(100);
-  subscriber.next(200);
-  setTimeout(() => {
-    subscriber.next(300);
-  }, 1000);
-});
-
-console.log('before');
-demo1.subscribe((x) => console.log(x));
-console.log('after');
-`
-    );
+    for (let i = 0, len = fileCount; i < len; i++) {
+      const filenum: string = ('' + (i + 1)).padStart(3, '0');
+      const filename: string = `code-${ filenum }.ts`;
+      const code: string = await firstValueFrom(this.http.get(`/assets/code/${ filename }`, { responseType: 'text'}));
+      this.code.push(code);
+    }
   };
 
   runDemo = (selected: number): void => {
@@ -69,6 +29,12 @@ console.log('after');
         break;
       case selected === 1:
         this.runDemo1();
+        break;
+      case selected === 2:
+        this.runDemo2();
+        break;
+      case selected === 3:
+        this.runDemo3();
         break;
       default:
         console.log('invalid selection:', selected);
@@ -113,5 +79,36 @@ console.log('after');
     this.output('before');
     this.demo1$.subscribe((x) => this.output('' + x));
     this.output('after');  
-  };  
+  };
+
+  demo2$ = new Subject<number>();
+ 
+  runDemo2 = (): void => {
+    this.demo2$.subscribe({
+      next: (v) => this.output(`observerA: ${v}`),
+    });
+    this.demo2$.subscribe({
+      next: (v) => this.output(`observerB: ${v}`),
+    });
+    
+    this.demo2$.next(1);
+    this.demo2$.next(2);  
+  };
+
+  demo3$ = new BehaviorSubject(0);
+
+  runDemo3 = (): void => {
+    this.demo3$.subscribe({
+      next: (v) => this.output(`observerA: ${v}`),
+    });
+     
+    this.demo3$.next(1);
+    this.demo3$.next(2);
+     
+    this.demo3$.subscribe({
+      next: (v) => this.output(`observerB: ${v}`),
+    });
+     
+    this.demo3$.next(3);
+  };
 }

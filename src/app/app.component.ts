@@ -17,18 +17,17 @@ export class AppComponent {
   constructor(public codeService: CodeService) {
     this.codeService.init();
     this.codeService.output = this.output.bind(this);
+    setTimeout(() => this.selectOption(0), 1000);
   }
 
   selectOption = (option: number): void => {
     this.selected = option;
     this.value = this.codeService.code[option];
-    console.log(this.selected);
     this.clearOutput();
   };
 
   runCode = (): void => {
     this.clearOutput();
-    console.log(this.selected);
     this.codeService.runDemo(this.selected);
   };
 
